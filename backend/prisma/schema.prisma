@@ -20,6 +20,8 @@ model User {
   photo       String? 
   blood_group String
   Emergency Emergency[]
+
+  ReferLab ReferLab[]
 }
 
 model Emergency{
@@ -44,6 +46,8 @@ model Doctor{
   Language    String
   fee         Int
   Speciality Speciality[]
+
+  ReferLab ReferLab[]
 }
 
 model Speciality{
@@ -63,8 +67,17 @@ model LabTest{
   address String
   type   String
   Date   DateTime
-    
+  ReferLab ReferLab[]
+}
 
+model ReferLab{
+   id     String @id @default(uuid())
+   doctor Doctor @relation(fields: [doctorid], references: [id])
+   doctorid String
+   lab   LabTest @relation(fields: [labid], references: [id])
+   labid String
+   user User @relation(fields: [userid], references: [id])
+   userid String
 }
 
 
