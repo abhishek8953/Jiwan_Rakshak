@@ -19,7 +19,55 @@ model User {
   password    String
   photo       String? 
   blood_group String
+  Emergency Emergency[]
 }
+
+model Emergency{
+  id          String  @id @default(uuid())
+  name        String
+  mobile_no   String
+  relatinon   String
+  user      User @relation(fields: [userId], references: [id])
+  userId      String
+}
+
+model Doctor{
+  id          String  @id @default(uuid())
+  name        String
+  email       String  @unique
+  age         Int 
+  mobile_no   String
+  address     String
+  photo       String? 
+  rating      Int
+  active      Boolean
+  Language    String
+  fee         Int
+  Speciality Speciality[]
+}
+
+model Speciality{
+  id          String  @id @default(uuid())
+  name        String
+  description String
+  experience  Int
+  certificate String
+  doctor      Doctor @relation(fields: [doctorid], references: [id])
+  doctorid    String
+}
+
+model LabTest{
+  id     String @id @default(uuid())
+  name   String
+  fee    Int
+  address String
+  type   String
+  Date   DateTime
+    
+
+}
+
+
 
 
 
