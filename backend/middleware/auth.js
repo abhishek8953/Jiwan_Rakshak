@@ -1,11 +1,10 @@
 import jwt from 'jsonwebtoken';
 
-// Secret key should be stored in an environment variable for security
-const JWT_SECRET = process.env.JWT_SECRET;
+
 
 // Authentication Middleware
 export const authenticate = async (req, res, next) => {
-    
+    const JWT_SECRET = process.env.JWT_SECRET;
   // Check for the token in Authorization header (Bearer token)
   const tokenFromHeader = req.headers['authorization']?.split(' ')[1];
 
@@ -21,12 +20,14 @@ export const authenticate = async (req, res, next) => {
   }
 
   try {
+    
     // Verify the token using the secret key
+    
     const decoded = jwt.verify(token, JWT_SECRET);
-
+  
     // Attach the user data to the request object for use in route handlers
     req.user = decoded;
-    console.log("g");
+    
     // Continue to the next middleware or route handler
     next();
   } catch (err) {

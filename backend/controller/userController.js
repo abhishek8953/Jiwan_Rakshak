@@ -3,7 +3,6 @@ import { z } from "zod";
 import jwt from "jsonwebtoken";
 import prisma from "../config/db.js";
 
-
 // Zod schema for signup validation
 const signupSchema = z.object({
 	name: z.string().min(1, "Name is required"),
@@ -33,7 +32,6 @@ const signupSchema = z.object({
 
 export const signup = async (req, res) => {
 	try {
-
 		const parsedData = signupSchema.safeParse(req.body);
 		if (!parsedData.success) {
 			return res.status(400).json({
@@ -44,7 +42,7 @@ export const signup = async (req, res) => {
 
 		const { name, email, age, mobile_no, address, password, blood_group } =
 			req.body;
-
+			
 		const existingUser = await prisma.user.findUnique({
 			where: { email },
 		});
@@ -73,7 +71,6 @@ export const signup = async (req, res) => {
 			.status(201)
 			.json({ message: "User registered successfully.", user });
 	} catch (error) {
-
 		return res.status(500).json({
 			message: "Signup failed.",
 			error: error.message,
@@ -118,7 +115,9 @@ export const login = async (req, res) => {
 // Check if user is authenticated via cookies
 export const checkProfile = async (req, res) => {
 	try {
+		
 		const id = req.user?.id;
+		
 		const user = await prisma.user.findUnique({
 			where: { id },
 		});
