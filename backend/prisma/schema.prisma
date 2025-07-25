@@ -149,6 +149,12 @@ model Hospital {
   establishedDate DateTime
 }
 
+enum Repeat {
+  ONCE
+  DAILY
+  WEEKLY
+}
+
 model MedicineReminder {
   id         String   @id @default(uuid())
   name       String
@@ -156,8 +162,8 @@ model MedicineReminder {
   frequency  String
   startDate  DateTime
   times      String[]
-  isActive   Boolean
-
+  isActive   Boolean @default(true)
+  repeat     Repeat
   userId     String
   user       User     @relation(fields: [userId], references: [id])
   updatedAt  DateTime @updatedAt
