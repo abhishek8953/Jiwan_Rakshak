@@ -1,13 +1,11 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-export const medicineReminderSchema = z.object({
-  name: z.string(),
+export const reminderSchema = z.object({
+  name: z.string().min(1),
   dosage: z.string(),
   frequency: z.string(),
   startDate: z.string().datetime(),
   times: z.array(z.string()),
-  repeat: z.enum(["ONCE", "DAILY", "WEEKLY"]),
-  userId: z.string().uuid(),
+  repeat: z.enum(['ONCE', 'DAILY', 'WEEKLY']),
+  userId: z.string(),
 });
-
-export const updateMedicineReminderSchema = medicineReminderSchema.partial();
