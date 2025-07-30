@@ -14,6 +14,7 @@ import healthRoutes from "./routes/healthRecordRoutes.js";
 import hospitalRoutes from "./routes/HospitalRoutes.js";
 import appointmentRoutes from "./routes/appotmentsRoute.js";
 import reminderRoutes from "./routes/reminderRoutes.js";
+import emergency from "./routes/emergencyRoutes.js"
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use("/api/health-records", healthRoutes);
 app.use("/api/hospitals", hospitalRoutes);
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/reminders", reminderRoutes);
+app.use("/api/emergency",emergency)
 
 app.get("/data", authenticate, (req, res) => {
 	console.log(req.user);
