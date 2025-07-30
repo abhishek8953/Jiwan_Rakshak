@@ -7,10 +7,11 @@ import {
   updateHospital,
   deleteHospital,
 } from '../controller/hospitalController.js';
+import upload from '../config/cludinary.js';
 
 const router = express.Router();
 
-router.post('/', createHospital);
+router.post('/',upload.single("file"),createHospital);
 router.get('/', getAllHospitals);
 router.get('/:id', getHospitalById);
 router.put('/:id', updateHospital);

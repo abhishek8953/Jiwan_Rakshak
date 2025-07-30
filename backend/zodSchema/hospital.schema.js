@@ -2,12 +2,13 @@
 import { z } from 'zod';
 
 export const hospitalSchema = z.object({
-  name: z.string({ required_error: "Name is required" }),
-  email: z.string().email({ message: "Invalid email address" }),
-  address: z.string({ required_error: "Address is required" }),
-  phone: z.number({ invalid_type_error: "Phone must be a number" }),
-  established: z.coerce.date({ invalid_type_error: "Invalid date" }),
-  totalBeds: z.number().int({ message: "Total beds must be an integer" }),
-  availableBeds: z.number().int({ message: "Available beds must be an integer" }),
-  rating: z.number().min(0).max(5, { message: "Rating must be between 0 and 5" })
+  id: z.string().uuid().optional(), // Usually auto-generated
+  name: z.string().min(1, "Name is required"),
+  description: z.string().min(1, "Description is required"),
+  address: z.string().min(1, "Address is required"),
+  photo: z.string().url("Photo must be a valid URL").optional(),
+  phone: z.string().min(1, "Phone number seems invalid"), // Assuming 10-digit phone numbers
+  rating: z.number().int().min(0).max(5), // Assuming rating is from 0 to 5
+  email: z.string().email("Invalid email address"),
+  establishedDate: z.coerce.date(), // Accepts string, number, or Date object
 });

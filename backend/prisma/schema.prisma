@@ -143,7 +143,7 @@ model Hospital {
   description     String
   address         String
   photo           String?
-  phone           Int
+  phone           String
   rating          Int
   email           String
   establishedDate DateTime
@@ -168,6 +168,17 @@ model MedicineReminder {
   user       User     @relation(fields: [userId], references: [id])
   updatedAt  DateTime @updatedAt
 }
+
+model ReminderLog {
+  id         String   @id @default(uuid())
+  reminderId String
+  userId     String
+  message    String
+  time       String
+  delivered  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
 
 model Message {
   id         String   @id @default(uuid())

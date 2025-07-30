@@ -2,14 +2,18 @@
 import { PrismaClient } from '@prisma/client';
 import { hospitalSchema } from "../zodSchema/hospital.schema.js";
 
+
 const prisma = new PrismaClient();
 
 export const createHospital = async (req, res) => {
   try {
+    req.body.rating=Number(req.body.rating)
     const validated = hospitalSchema.parse(req.body);
+    validated.photo=req.file.path
     const hospital = await prisma.hospital.create({ data: validated });
     res.status(201).json(hospital);
   } catch (error) {
+   
     res.status(400).json({ error: error?.issues || error.message });
   }
 };
