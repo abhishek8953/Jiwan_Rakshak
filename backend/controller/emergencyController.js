@@ -100,7 +100,7 @@ export const notifyEmergencies = async (req, res) => {
       // Send SMS
       await twilioClient.messages.create({
         body: message,
-        to: contact.mobileNo,
+        to: `+91${contact.mobileNo}`,
         from: process.env.TWILIO_PHONE_NUMBER,
       });
     }

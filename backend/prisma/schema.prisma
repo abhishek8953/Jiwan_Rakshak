@@ -27,6 +27,8 @@ model User {
   appointments      Appointment[]
   ambulances        Ambulance[]
 
+
+  Payment Payment[]
 }
 
 enum Type {
@@ -126,12 +128,15 @@ model Speciality {
 }
 
 model Lab {
-  id      String   @id @default(uuid())
-  name    String
-  fee     Int
-  address String
-  type    String
-  date    DateTime
+  id                String   @id @default(uuid())
+  name              String
+  fee               Int
+  address           String
+  type              String
+  date              DateTime
+  isSubscribed      Boolean   @default(false)
+  subscriptionStart DateTime?
+  subscriptionEnd   DateTime?
 
   userId  String
   user    User     @relation(fields: [userId], references: [id])
@@ -189,3 +194,28 @@ model Message {
   receiverId String
 
 }
+
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  CANCELLED
+}
+
+model Payment {
+  id               String   @id @default(uuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id])
+  razorpayOrderId  String   @unique
+  razorpayPaymentId String? // filled after payment
+  status           PaymentStatus @default(PENDING)
+  amount           Int
+  currency         String   @default("INR")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+
+
+

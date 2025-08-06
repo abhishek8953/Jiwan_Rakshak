@@ -27,6 +27,7 @@
     "nodemailer": "^7.0.5",
     "nodemon": "^3.1.10",
     "prisma": "^6.6.0",
+    "razorpay": "^2.9.6",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "twilio": "^5.8.0",

@@ -15,6 +15,9 @@ import hospitalRoutes from "./routes/HospitalRoutes.js";
 import appointmentRoutes from "./routes/appotmentsRoute.js";
 import reminderRoutes from "./routes/reminderRoutes.js";
 import emergency from "./routes/emergencyRoutes.js"
+import labRoutes from "./routes/labRoutes.js"
+import paymentRoutes from "./routes/paymentRoute.js"
+import "./utils/subscriptionChecker.js"
 
 const app = express();
 
@@ -46,6 +49,8 @@ app.use("/api/hospitals", hospitalRoutes);
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/reminders", reminderRoutes);
 app.use("/api/emergency",emergency)
+app.use("/api/labs", labRoutes);
+app.use("/api/payments", paymentRoutes);
 
 app.get("/data", authenticate, (req, res) => {
 	console.log(req.user);
